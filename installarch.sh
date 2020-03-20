@@ -20,6 +20,12 @@ if ! [ ${#SIZE[@]} -eq 2 ] || ! [[ ${SIZE[0]} =~ $re ]] || ! [[ ${SIZE[1]} =~ $r
     SIZE=(12 25);
 fi
 
+echo Putting OSUOSL at top of the mirror list
+
+echo 'Server = http://ftp.osuosl.org/pub/archlinux/$repo/os/$arch' > /mirrorlist
+cat /etc/pacman.d/mirrorlist >> /mirrorlist
+mv /mirrorlist /etc/pacman.d/mirrorlist
+
 timedatectl set-ntp true
 
 cat <<EOF | fdisk /dev/sda
